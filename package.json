@@ -11,7 +11,6 @@
     "ejs": "2.3.4",
     "lodash": "3.10.1",
     "backbone": "1.2.3",
-    "backbone-computedfields": "0.0.12",
     "babel-core": "6.1.2",
     "react": "0.14.0",
     "react-dom": "0.14.0",
