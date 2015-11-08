@@ -1,4 +1,4 @@
-const Backbone = require('Backbone');
+const Backbone = require('backbone');
 const _ = require('lodash');
 const Player = require('./player.js');
 const Weather = require('./weather.js');
