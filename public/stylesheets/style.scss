@@ -1,0 +1,91 @@
+$board-width: 900px;
+$board-height: 579px;
+$hand-height: 100px;
+$sidebar-width: 200px;
+
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+#sidebar {
+	width: $sidebar-width;
+	height: $board-height + $hand-height;
+	float: left;
+	border: 3px solid blue;
+	box-sizing: border-box;
+}
+
+#board-container {
+	width: $board-width;
+	height: $board-height + $hand-height;
+	margin-left: $sidebar-width;
+}
+
+#board {
+	/*Original size: 2581x1660*/
+	width: $board-width;
+	height: $board-height;
+	background-image: url('../assets/board.jpg');
+	background-size: 100% 100%;
+}
+
+.alert {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+
+	.alert-msg {
+		width: 50%;
+		height: 30%;
+		background-color: white;
+		text-align: center;
+		margin: 30% 25%;
+	}
+}
+
+.hand {
+	height: $hand-height;
+	width: $board-width;
+	border: 3px solid black;
+	box-sizing: border-box;
+
+	ul {
+		list-style-type: none;
+		margin-top: 0px;
+	}
+}
+
+.card {
+	width: 8%;
+	height: 90px;
+
+	border: 2px solid black;
+	box-sizing: border-box;
+
+	float: left;
+	position: relative;
+
+	margin-left: -15px;
+	background-color: gray;
+
+	.name {
+		font-size: 8pt;
+		text-align: center;
+	}
+
+	.strength {
+		position: absolute;
+		bottom: 0;
+
+		padding: 0 4px;
+		margin: 4px 4px;
+		border: 1px solid black;
+		border-radius: 12pt;
+	}
+
+	&:hover {
+		margin-right: 15px;
+	}
+}

@@ -1,0 +1,67 @@
+html, body {
+  height: 100%;
+  width: 100%; }
+
+#sidebar {
+  width: 200px;
+  height: 679px;
+  float: left;
+  border: 3px solid blue;
+  box-sizing: border-box; }
+
+#board-container {
+  width: 900px;
+  height: 679px;
+  margin-left: 200px; }
+
+#board {
+  /*Original size: 2581x1660*/
+  width: 900px;
+  height: 579px;
+  background-image: url("../assets/board.jpg");
+  background-size: 100% 100%; }
+
+.alert {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); }
+  .alert .alert-msg {
+    width: 50%;
+    height: 30%;
+    background-color: white;
+    text-align: center;
+    margin: 30% 25%; }
+
+.hand {
+  height: 100px;
+  width: 900px;
+  border: 3px solid black;
+  box-sizing: border-box; }
+  .hand ul {
+    list-style-type: none;
+    margin-top: 0px; }
+
+.card {
+  width: 8%;
+  height: 90px;
+  border: 2px solid black;
+  box-sizing: border-box;
+  float: left;
+  position: relative;
+  margin-left: -15px;
+  background-color: gray; }
+  .card .name {
+    font-size: 8pt;
+    text-align: center; }
+  .card .strength {
+    position: absolute;
+    bottom: 0;
+    padding: 0 4px;
+    margin: 4px 4px;
+    border: 1px solid black;
+    border-radius: 12pt; }
+  .card:hover {
+    margin-right: 15px; }
+
+/*# sourceMappingURL=style.css.map */
