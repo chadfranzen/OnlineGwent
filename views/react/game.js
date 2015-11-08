@@ -14,11 +14,8 @@ const Game = React.createClass({
 			// Data about our opponent
 			opponent: {},
 
-			// True if we have lost connection to the server and cannot continue
-			error: false,
-
-			// True if the game is ready to play
-			gameStarted: false
+			// When set, will display the text in a fullscreen alert
+			alertText: 'Waiting for game to begin...'
 		};
 	},
 
@@ -27,11 +24,15 @@ const Game = React.createClass({
 		
 		server.on('update', (data) => {
 			this.setState(data);
-			this.setState({gameStarted: true});
+			this.setState({alertText: null});
 		});
 
 		server.on('disconnect', () => {
-			this.setState({error: true});
+			this.setState({alertText: 'Disconnected'});
+		});
+
+		server.on('full', () => {
+			this.setState({alertText: 'A game is already in progress. Try again later.'})
 		});
 	},
 
@@ -39,17 +40,14 @@ const Game = React.createClass({
 	render() {
 		const player = this.state.player,
 			  opponent = this.state.opponent,
-			  error = this.state.error,
-			  gameStarted = this.state.gameStarted;
+			  move = this.state.move,
+			  alertText = this.state.alertText;
 
 		return (
 			<div>
 				{
-					error && 
-					<div className='alert'><div className='alert-msg'>Disconnected</div></div>}
-				{
-					!gameStarted && 
-					<div className='alert'><div className='alert-msg'>Waiting for game to begin</div></div>
+					alertText &&	
+					<div className='alert'><div className='alert-msg'>{alertText}</div></div>
 				}
 				
 				<Sidebar  player={player} opponent={opponent}/>

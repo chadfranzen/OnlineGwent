@@ -29,13 +29,14 @@ var Connections = Backbone.Model.extend({
 
 		if (!firstClient) {
 			this.set('firstClient', socket);
-		} else if (!this.secondClient) {
+		} else if (!secondClient) {
 			this.set('secondClient', socket);
 
 			// Game is ready to start
 			this.get('gameController').startGame();
 			this.sendGame();
 		} else {
+			socket.emit('full');
 			return false;
 		}
 

@@ -19652,11 +19652,8 @@
 				// Data about our opponent
 				opponent: {},
 
-				// True if we have lost connection to the server and cannot continue
-				error: false,
-
-				// True if the game is ready to play
-				gameStarted: false
+				// When set, will display the text in a fullscreen alert
+				alertText: 'Waiting for game to begin...'
 			};
 		},
 		componentDidMount: function componentDidMount() {
@@ -19666,38 +19663,33 @@
 
 			server.on('update', function (data) {
 				_this.setState(data);
-				_this.setState({ gameStarted: true });
+				_this.setState({ alertText: null });
 			});
 
 			server.on('disconnect', function () {
-				_this.setState({ error: true });
+				_this.setState({ alertText: 'Disconnected' });
+			});
+
+			server.on('full', function () {
+				_this.setState({ alertText: 'A game is already in progress. Try again later.' });
 			});
 		},
 		render: function render() {
 			var player = this.state.player,
 			    opponent = this.state.opponent,
-			    error = this.state.error,
-			    gameStarted = this.state.gameStarted;
+			    move = this.state.move,
+			    alertText = this.state.alertText;
 
 			return _react2.default.createElement(
 				'div',
 				null,
-				error && _react2.default.createElement(
+				alertText && _react2.default.createElement(
 					'div',
 					{ className: 'alert' },
 					_react2.default.createElement(
 						'div',
 						{ className: 'alert-msg' },
-						'Disconnected'
-					)
-				),
-				!gameStarted && _react2.default.createElement(
-					'div',
-					{ className: 'alert' },
-					_react2.default.createElement(
-						'div',
-						{ className: 'alert-msg' },
-						'Waiting for game to begin'
+						alertText
 					)
 				),
 				_react2.default.createElement(_sidebar2.default, { player: player, opponent: opponent }),
