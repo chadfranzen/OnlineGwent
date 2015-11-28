@@ -168,7 +168,7 @@ addCards({
 
 addCards({
 	type: 'UNIT',
-	name: 'Kaedweni Siege Expert',
+	name: 'Thaler',
 	range: 'SIEGE',
 	baseStrength: 1,
 	ability: 'SPY'

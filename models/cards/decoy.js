@@ -22,6 +22,10 @@ const Decoy = Backbone.Model.extend({
 		this.trigger('play', this);
 	},
 
+	getStrength() {
+		return 0;
+	},
+
 	toJSON() {
 		var clone = _.clone(this.attributes);
 		delete clone.row;

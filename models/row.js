@@ -100,12 +100,12 @@ const Row = Backbone.Model.extend({
 	 * @param  {Number} strength the strength of cards to remove
 	 */
 	removeWhere(strength) {
-		_.each(_.clone(this.get('cards')), (card) => {
-			if (card.getStrength() === strength &&
-				card.get('ability') !== 'HERO') {
-				this.removeCard(card);
-			}
+		var cardsToRemove = _.filter(this.get('cards'), (card) => {
+			return (card.getStrength() === strength &&
+					card.get('ability') !== 'HERO');
 		});
+
+		_.each(cardsToRemove, (card) => this.removeCard(card));
 	},
 
 	/**
@@ -121,6 +121,13 @@ const Row = Backbone.Model.extend({
 		cards.splice(index, 1);
 		card.set('row', null);
 		this.trigger('remove', card, returnToHand);
+	},
+
+	toJSON() {
+		var clone = _.clone(this.attributes);
+		clone.strength = this.getStrength();
+		clone.weatherIsActive = this.weatherIsActive();
+		return clone;
 	}
 });
 

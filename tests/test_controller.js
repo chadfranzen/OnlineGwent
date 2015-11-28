@@ -39,7 +39,7 @@ module.exports = {
 	test_pass: function(test) {
 		test.ok(this.controller.makeMove({
 			playerId: 'first',
-			moveType: 'PASS'
+			type: 'PASS'
 		}), 'Move should have executed');
 
 		test.ok(this.player.get('hasPassed'), 'Player should have passed');
@@ -52,7 +52,7 @@ module.exports = {
 	test_play_card: function(test) {
 		test.ok(this.controller.makeMove({
 			playerId: 'first',
-			moveType: 'PLAY',
+			type: 'PLAY',
 			card: {
 				name: 'Keira Metz'
 			}
@@ -68,7 +68,7 @@ module.exports = {
 	test_play_horn: function(test) {
 		test.ok(this.controller.makeMove({
 			playerId: 'first',
-			moveType: 'PLAY',
+			type: 'PLAY',
 			card: {
 				name: "Commander's Horn"
 			},
@@ -87,20 +87,20 @@ module.exports = {
 		// Put a card on the field for us to decoy
 		this.controller.makeMove({
 			playerId: 'first',
-			moveType: 'PLAY',
+			type: 'PLAY',
 			card: {
 				name: 'Keira Metz'
 			}
 		});
 		this.controller.makeMove({
 			playerId: 'second',
-			moveType: 'PASS'
+			type: 'PASS'
 		});
 
 		// Play the decoy
 		test.ok(this.controller.makeMove({
 			playerId: 'first',
-			moveType: 'PLAY',
+			type: 'PLAY',
 			card: {
 				name: 'Decoy'
 			},
@@ -125,18 +125,34 @@ module.exports = {
 
 		test.ok(!this.controller.makeMove({
 			playerId: 'first',
-			moveType: 'JUNK'
+			type: 'JUNK'
 		}), 'Should not execute if move type is invalid');
 
 		this.game.set('gameOver', true);
 		test.ok(!this.controller.makeMove({
 			playerId: 'first',
-			moveType: 'PLAY',
+			type: 'PLAY',
 			card: {
 				name: 'Keira Metz'
 			}
 		}), 'Should not execute move if game is over');
 
+		test.done();
+	},
+
+	/**
+	 * Checks that controllers track the last played card
+	 */
+	test_last_played: function(test) {
+		this.controller.makeMove({
+			playerId: 'first',
+			type: 'PLAY',
+			card: {
+				name: 'Keira Metz'
+			}
+		});
+
+		test.equal(this.controller.get('lastPlayed').name, 'Keira Metz', 'Should have updated last played card');
 		test.done();
 	},
 

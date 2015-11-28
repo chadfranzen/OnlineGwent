@@ -52,6 +52,12 @@ const Hand = Backbone.Model.extend({
 
 		card.off(null, null, this);
 		cards.splice(index, 1);
+
+		// When we play a spy, we draw two cards
+		if (card.get('ability') === 'SPY') {
+			_.each(this.get('deck').draw(2), (card) => this.addCard(card));
+		}
+
 		this.trigger('play', card);
 	},
 

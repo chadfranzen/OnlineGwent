@@ -130,7 +130,8 @@ const Player = Backbone.Model.extend({
 			hand: this.get('hand').toJSON(),
 			field: this.get('field').toJSON(),
 			lives: this.get('lives'),
-			strength: this.get('strength')
+			hasPassed: this.get('hasPassed'),
+			strength: this.getStrength()
 		}
 	},
 });

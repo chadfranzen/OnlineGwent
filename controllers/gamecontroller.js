@@ -2,41 +2,23 @@ var Backbone = require('backbone');
 var Game = require('../models/game.js');
 
 /**
- * Valid moves:
- *
+ * Valid move:
  * {
  * 	playerId: <playerId>,
- * 	moveType: 'PASS'
- * }
- *
- *
- * 
- * {
- * 	playerId: <playerId>,
- * 	moveType: 'PLAY'
- * 	card: {
- * 		name: <name of card>,
- * 	},
- * 	target: {
- * 		name: <name of card>,
- * 		range: <range of card>
- * 	}
- *  
- *  
- *  {
- * 	playerId: <playerId>,
- * 	moveType: 'PLAY'
- * 	card: {
- * 		name: <name of card>,
- * 	},
- * 	range: <range>
+ * 	moveType: <'PASS'/'PLAY'>,
+ * 	card: <card data>,
+ * 	target: <target card data if decoy>,
+ * 	range: <'CLOSE'/'RANGED'/'SIEGE' if horn>
  * }
  */
 
 var GameController = Backbone.Model.extend({
 	defaults: {
 		// The game instance this is controlling
-		game: null
+		game: null,
+
+		// Holds the data for the last card that was played in this game
+		lastPlayed: null
 	},
 
 	/**
@@ -44,6 +26,7 @@ var GameController = Backbone.Model.extend({
 	 */
 	startGame() {
 		this.set('game', new Game());
+		this.set('lastPlayed', null);
 	},
 
 	/**
@@ -53,7 +36,7 @@ var GameController = Backbone.Model.extend({
 	 */
 	makeMove(move) {
 		var game = this.get('game'),
-			moveType = move.moveType,
+			moveType = move.type,
 			player = game.get(move.playerId);
 
 		// If game is over or it's not this player's turn, ignore this request
@@ -96,7 +79,8 @@ var GameController = Backbone.Model.extend({
 			targetCard = player.get('field').get(targetRange).findCard(targetName);
 			cardToPlay.set('target', targetCard);
 		}
-		
+
+		this.set('lastPlayed', cardToPlay.toJSON());
 		cardToPlay.play();
 	},
 
@@ -116,9 +100,12 @@ var GameController = Backbone.Model.extend({
 			state.player = state.second;
 			state.opponent = state.first;
 		}
+		state.activePlayer = (playerId === state.activePlayer);
 
 		delete state.first;
 		delete state.second;
+
+		state.lastPlayed = this.get('lastPlayed');
 
 		return state;
 	}

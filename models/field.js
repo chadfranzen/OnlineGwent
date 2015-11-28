@@ -86,14 +86,7 @@ const Field = Backbone.Model.extend({
 	},
 
 	toJSON() {
-		var clone = _.clone(this.attributes),
-			key;
-
-		for (key in clone) {
-			if (_.isFunction(clone[key].toJSON)) {
-				clone[key] = clone[key].toJSON();
-			}
-		}
+		var clone = _.clone(this.attributes);
 
 		return clone;
 	}

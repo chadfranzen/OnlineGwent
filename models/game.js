@@ -30,10 +30,8 @@ const Game = Backbone.Model.extend({
 		second.set('opponent', first);
 
 
-		first.on('play', this.cardPlayed, this);
 		first.on('play', this.moveMade, this);
 		first.on('pass', this.moveMade, this);
-		second.on('play', this.cardPlayed, this);
 		second.on('play', this.moveMade, this);
 		second.on('pass', this.moveMade, this);
 
@@ -41,17 +39,8 @@ const Game = Backbone.Model.extend({
 		this.set('second', second);
 
 		this.set('activePlayer', first);
-	},
 
-	/**
-	 * Triggered whenever a card is played.
-	 * Switches the turn, and takes care of any special
-	 * cards that need to be activated.
-	 * @param  {Player} player the player who played the card
-	 * @param  {Card} card   the card that was just played
-	 */
-	cardPlayed(player, card) {
-		// Nothing for now!
+		Weather.clearWeather();
 	},
 
 	/**
@@ -59,7 +48,9 @@ const Game = Backbone.Model.extend({
 	 * @param  {Player} player  the player who made the move
 	 */
 	moveMade(player) {
-		this.set('activePlayer', player.get('opponent'));
+		if (!player.get('opponent').get('hasPassed')) {
+			this.set('activePlayer', player.get('opponent'));
+		}
 		this.checkForRoundEnd();
 	},
 
@@ -90,6 +81,8 @@ const Game = Backbone.Model.extend({
 
 			first.endRound(winner == first);
 			second.endRound(winner == second);
+
+			Weather.clearWeather();
 
 			this.checkForMatchOver();
 		}

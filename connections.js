@@ -28,8 +28,10 @@ var Connections = Backbone.Model.extend({
 			secondClient = this.get('secondClient');
 
 		if (!firstClient) {
+			socket.emit('id', 'first');
 			this.set('firstClient', socket);
 		} else if (!secondClient) {
+			socket.emit('id', 'second');
 			this.set('secondClient', socket);
 
 			// Game is ready to start
@@ -70,7 +72,6 @@ var Connections = Backbone.Model.extend({
 	 */
 	moveMade(move) {
 		var success = this.get('gameController').makeMove(move);
-
 		if (success) {
 			this.sendGame();
 		}

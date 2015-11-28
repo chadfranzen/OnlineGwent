@@ -39,7 +39,7 @@ const UnitCard = Backbone.Model.extend({
 
 		// Weather sets strength to 1
 		if (row.weatherIsActive()) {
-			strength = 1;
+			strength = Math.min(1, strength);
 		}
 		// Find the number of morale boost cards in our row (that aren't us)
 		var moraleBoostCount = _.filter(row.get('cards'), (card) => {

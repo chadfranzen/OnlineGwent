@@ -2,22 +2,91 @@ html, body {
   height: 100%;
   width: 100%; }
 
+html {
+  background-image: url("../assets/wood.jpg");
+  font-family: Segoe, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; }
+
+body {
+  margin: 0; }
+
+#container {
+  width: 1200px;
+  margin: auto; }
+
 #sidebar {
   width: 200px;
-  height: 679px;
+  height: 743px;
   float: left;
-  border: 3px solid blue;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  color: #AC8F53;
+  padding-top: 112px; }
+  #sidebar .player-info {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px 8px;
+    font-weight: bold; }
+    #sidebar .player-info .player-name {
+      font-weight: bold;
+      font-size: 14pt; }
+    #sidebar .player-info .cards-remaining {
+      font-size: 20pt; }
+    #sidebar .player-info .player-strength {
+      position: relative;
+      float: right;
+      top: 7px;
+      width: 40px;
+      height: 40px;
+      left: 30px;
+      text-align: center;
+      color: black;
+      background-color: #AC8F53;
+      border: 2px solid white;
+      box-sizing: border-box;
+      border-radius: 30px;
+      padding-top: 9px; }
+    #sidebar .player-info .ruby {
+      width: 25px;
+      height: 25px;
+      float: right;
+      margin-left: 5px;
+      margin-top: 3px; }
+  #sidebar .last-played {
+    width: 100%;
+    height: 111px;
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin: 61px 0px;
+    list-style-type: none;
+    box-sizing: border-box; }
+    #sidebar .last-played > span {
+      margin-top: 21px;
+      float: left;
+      font-size: 14pt;
+      font-weight: bold; }
+    #sidebar .last-played .card {
+      float: right; }
+  #sidebar .pass {
+    display: block;
+    padding: 15px;
+    margin-top: 27px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 15pt;
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer; }
+    #sidebar .pass:hover {
+      box-shadow: inset 0px 0px 30px 8px rgba(172, 143, 83, 0.6); }
+    #sidebar .pass:active {
+      box-shadow: inset 0px 0px 30px 8px gold; }
 
 #board-container {
-  width: 900px;
-  height: 679px;
+  width: 1000px;
+  height: 743px;
   margin-left: 200px; }
 
 #board {
   /*Original size: 2581x1660*/
-  width: 900px;
-  height: 579px;
+  width: 1000px;
+  height: 643px;
   background-image: url("../assets/board.jpg");
   background-size: 100% 100%; }
 
@@ -25,43 +94,168 @@ html, body {
   position: fixed;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); }
+  top: 0px;
+  left: 0px;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2; }
   .alert .alert-msg {
     width: 50%;
     height: 30%;
-    background-color: white;
+    background-color: rgba(0, 0, 0, 0.8);
     text-align: center;
-    margin: 30% 25%; }
+    margin: 200px 25%;
+    border-radius: 15px;
+    padding-top: 90px;
+    color: white;
+    box-shadow: #AC8F53 0px 0px 10px 6px inset; }
 
 .hand {
   height: 100px;
   width: 900px;
-  border: 3px solid black;
-  box-sizing: border-box; }
+  text-align: center; }
   .hand ul {
+    display: inline-block;
     list-style-type: none;
     margin-top: 0px; }
+    .hand ul .card {
+      cursor: pointer; }
+      .hand ul .card:hover {
+        box-shadow: white 0px 0px 5px 2px inset; }
+      .hand ul .card:active {
+        box-shadow: gold 0px 0px 5px 2px inset; }
+
+.highlight {
+  box-shadow: inset 0px 0px 30px 8px rgba(172, 143, 83, 0.6); }
+  .highlight:hover:not(.player-info) {
+    box-shadow: inset 0px 0px 30px 8px gold;
+    cursor: pointer; }
 
 .card {
-  width: 8%;
-  height: 90px;
+  width: 75px;
+  height: 95px;
   border: 2px solid black;
+  border-radius: 5px;
   box-sizing: border-box;
   float: left;
   position: relative;
   margin-left: -15px;
-  background-color: gray; }
+  background-color: gray;
+  color: black;
+  background-size: 50% 50%;
+  background-repeat: no-repeat;
+  background-position: center; }
   .card .name {
     font-size: 8pt;
-    text-align: center; }
+    text-align: center;
+    padding-left: 4px;
+    padding-right: 4px;
+    color: white;
+    text-shadow: 1px 1px black; }
   .card .strength {
     position: absolute;
     bottom: 0;
-    padding: 0 4px;
+    padding: 0 5px;
     margin: 4px 4px;
-    border: 1px solid black;
-    border-radius: 12pt; }
+    border: 1px solid #AC8F53;
+    border-radius: 12pt;
+    background-color: white; }
+  .card.HERO {
+    box-shadow: gold 0px 0px 5px 2px inset; }
+    .card.HERO .name {
+      color: gold; }
+    .card.HERO .strength {
+      background-color: black;
+      color: gold;
+      text-shadow: 1px 1px white; }
+  .card .ability {
+    position: absolute;
+    bottom: 0;
+    padding: 0 5px;
+    margin: 4px 4px;
+    border: 1px solid #AC8F53;
+    border-radius: 12pt;
+    background-color: white;
+    width: 9px;
+    height: 18px;
+    right: 0px;
+    background-size: contain; }
+    .card .ability.SPY {
+      background-image: url("../assets/SPY.png"); }
+    .card .ability.TIGHTBOND {
+      background-image: url("../assets/TIGHTBOND.png"); }
+    .card .ability.MORALEBOOST {
+      background-image: url("../assets/MORALEBOOST.png"); }
   .card:hover {
     margin-right: 15px; }
+  .card.CLOSE {
+    background-image: url("../assets/CLOSE.png");
+    background-color: #508890; }
+  .card.RANGED {
+    background-image: url("../assets/RANGED.png");
+    background-color: #815A0F; }
+  .card.SIEGE {
+    background-image: url("../assets/SIEGE.png");
+    background-color: #232C19; }
+  .card.HORN {
+    background-image: url("../assets/HORN.png"); }
+  .card.SCORCH {
+    background-image: url("../assets/SCORCH.png");
+    background-color: #631316; }
+  .card.DECOY {
+    background-image: url("../assets/DECOY.png");
+    background-color: burlywood; }
+  .card.WEATHER {
+    background-size: 50% 40%; }
+    .card.WEATHER.CLOSE {
+      background-image: url("../assets/FROST.png");
+      background-color: snow; }
+      .card.WEATHER.CLOSE .name {
+        color: black;
+        text-shadow: none; }
+    .card.WEATHER.RANGED {
+      background-image: url("../assets/FOG.png");
+      background-color: gray; }
+    .card.WEATHER.SIEGE {
+      background-image: url("../assets/RAIN.png");
+      background-color: royalblue; }
+    .card.WEATHER.ALL {
+      background-image: url("../assets/CLEAR.png");
+      background-color: gold; }
+
+.field {
+  width: 74%;
+  margin-left: 9%; }
+  .field .row {
+    width: 100%;
+    height: 104px;
+    box-sizing: border-box; }
+    .field .row .row-strength {
+      position: absolute;
+      margin-top: 32px;
+      margin-left: -40px;
+      border: 2px solid white;
+      border-radius: 30px;
+      padding: 10px 14px;
+      background-color: #AC8F53; }
+    .field .row .horn {
+      width: 14.5%;
+      height: 100%;
+      box-sizing: border-box;
+      float: left; }
+      .field .row .horn.active {
+        background-image: url("../assets/horncard.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position-x: center; }
+    .field .row ul {
+      width: 86.5%;
+      height: 100%;
+      list-style-type: none;
+      margin-top: 0px;
+      margin-left: 14.5%;
+      padding-top: 6px;
+      box-sizing: border-box; }
+      .field .row ul.weather {
+        box-shadow: inset 0px 0px 11px 9px #336699; }
 
 /*# sourceMappingURL=style.css.map */
